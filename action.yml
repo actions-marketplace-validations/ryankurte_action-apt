@@ -1,20 +1,20 @@
-name: 'apt multiarch helper action'
-description: 'Use apt to setup a foreign architecture (multiarch) and install packages on ubuntu'
-author: 'ryan kurte'
+name: "apt multiarch helper action"
+description: "Use apt to setup a foreign architecture (multiarch) and install packages on ubuntu"
+author: "ryan kurte"
 inputs:
   arch:
-    description: 'Foreign architecture to configure'
+    description: "Foreign architecture to configure"
     required: true
   packages:
-    description: 'List of packages to install'
+    description: "List of packages to install"
     required: true
 outputs:
-  distro: 
+  distro:
     description: "Detected ubuntu distribution"
     value: ${{ steps.discover-distro.outputs.distro }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: "Patch azure archives for [amd64, i386] use only"
       shell: bash
@@ -44,10 +44,15 @@ runs:
       shell: bash
       run: sudo apt-get update
 
+    - name: "Discover options"
+      shell: bash
+      run: |
+        echo '::set-output options_configured=Dpkg::Options::="{{ inputs.options }}"'
+
     - name: "Install packages"
       shell: bash
-      run: sudo apt-get install -y ${{ inputs.packages }}
+      run: sudo apt-get install -y ${{ inputs.packages }} ${{ inputs.options_configured }}
 
 branding:
-  icon: 'arrow-down-circle'  
-  color: 'blue'
+  icon: "arrow-down-circle"
+  color: "blue"
