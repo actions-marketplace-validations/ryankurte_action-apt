@@ -8,6 +8,10 @@ inputs:
   packages:
     description: "List of packages to install"
     required: true
+  dpkg_options:
+    description: "Additional options to pass to dpkg"
+    required: false
+
 outputs:
   distro:
     description: "Detected ubuntu distribution"
@@ -46,7 +50,7 @@ runs:
 
     - name: "Install packages"
       shell: bash
-      run: sudo apt-get install -y ${{ inputs.packages }} -f -o Dpkg::Options::="${{ inputs.options }}"
+      run: sudo apt-get install -y ${{ inputs.packages }} -f -o Dpkg::Options::="${{ inputs.dpkg_options }}"
 
 branding:
   icon: "arrow-down-circle"
