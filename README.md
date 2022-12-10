@@ -9,10 +9,19 @@ If you just need to install packages, use a `run: sudo apt-get install -y PACKAG
 
 This patches the existing apt repositories on the system, adds the specified architecture via multiarch, adds a set of viable port repositories, and finally updates the cache and installs the specified packages.
 
-
 ```yaml
   - uses: ryankurte/action-apt@v0.3.0
     with:
       arch: armhf
       packages: "libsqlite3-dev:armhf"
+```
+
+Optionally, you can pass `dpkg` options to the `apt-get` install command using `dpg_options`
+
+```yaml
+      - uses: ./
+        with:
+          arch: armhf
+          dpkg_options: "--force-overwrite"
+          packages: "libsqlite3-dev:armhf libc6-dev:armhf"
 ```
