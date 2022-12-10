@@ -45,9 +45,10 @@ runs:
       run: sudo apt-get update
 
     - name: "Discover options"
+      id: options_configured
       shell: bash
       run: |
-        echo '::set-output options_configured=Dpkg::Options::="{{ inputs.options }}"'
+        echo '::set-output name=Dpkg::Options::="{{ inputs.options }}"'
 
     - name: "Install packages"
       shell: bash
