@@ -23,5 +23,5 @@ jobs:
       - uses: ./
         with:
           arch: armhf
-          dpg_options: "--force-overwrite"
+          dpkg_options: "--force-overwrite"
           packages: "libsqlite3-dev:armhf libc6-dev:armhf"
