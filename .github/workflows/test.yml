@@ -4,14 +4,24 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - master
-      - 'releases/*'
+      - "releases/*"
 
 jobs:
   test: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: ./
-      with:
-        arch: armhf
-        packages: "libsqlite3-dev:armhf libc6-dev:armhf"
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          arch: armhf
+          packages: "libsqlite3-dev:armhf libc6-dev:armhf"
+
+  test_options: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          arch: armhf
+          dpkg_options: "--force-overwrite"
+          packages: "libsqlite3-dev:armhf libc6-dev:armhf"
